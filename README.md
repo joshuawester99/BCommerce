@@ -1,1 +1,3 @@
 # BCommerce
+
+HOW TO RUN
