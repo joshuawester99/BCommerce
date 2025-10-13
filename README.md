@@ -26,18 +26,3 @@ $ mvn clean package dockerfile:build
 # which will use docker-compose to launch the image.  
 $ docker-compose -f docker/docker-compose.yml up
 ```
-
-# The build command
-
-Will execute the [Spotify dockerfile plugin](https://github.com/spotify/dockerfile-maven) defined in the pom.xml file.  
-
-This is the first chapter we will have multiple Spring projects that need to be be built and compiled.  Running the above command at the root of the project directory will build all of the projects.  If everything builds successfully you should see a message indicating that the build was successful.
-
-# The Run command
-
-This command will run our services using the docker-compose.yml file located in the /docker directory. 
-
-If everything starts correctly you should see a bunch of Spring Boot information fly by on standard out.  At this point all of the services needed for the chapter code examples will be running.
-
-# Database
-You can find the database script as well in the docker directory.
