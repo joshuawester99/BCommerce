@@ -103,8 +103,8 @@ services:
   cart_service:
     image: cart_service
     environment:
-      PROFILE: "dev"
-      SPRING_PROFILES_ACTIVE: "dev"
+      PROFILE: "prod"
+      SPRING_PROFILES_ACTIVE: "prod"
       CONFIGSERVER_URI: "http://configuration_server:8089"
       SPRING_CLOUD_CONFIG_URI: "http://configuration_server:8089"
       CONFIGSERVER_PORT: "8089"
