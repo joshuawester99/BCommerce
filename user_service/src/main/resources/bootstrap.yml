@@ -1,0 +1,8 @@
+spring:
+  application:
+    name: user_service
+  profiles:
+    active: dev
+  cloud:
+    config:
+      uri: http://configuration_server:8089

@@ -8,9 +8,9 @@ import lombok.ToString;
 
 @Getter @Setter @ToString
 @Entity
-public class Cart {
+public class Item {
 	
-	@Id private String cartId;
-	private double total;
-
+	@Id private String name;
+	private int quantity_to_purchase;
+	private double price;
 }

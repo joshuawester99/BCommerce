@@ -1,16 +1,24 @@
 package argon;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.Table;
+
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
 
 @Getter @Setter @ToString
-@Entity
+@Entity @Table(name = "users")
 public class User {
 
-	@Id private String name;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY) // Auto-generated ID
+    private Long id;
+
+    private String name;
 	private String email;
 	private String credit_card;
 	private String address;

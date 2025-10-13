@@ -1,0 +1,162 @@
+services:
+  # Databases
+  user_db:
+    image: postgres:15
+    ports:
+      - "5432:5432"
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: user_dev
+    volumes:
+      - ./db/init:/docker-entrypoint-initdb.d:ro   # put init.sql + data.sql here
+      - user_db_data:/var/lib/postgresql/data
+    networks:
+      - backend
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  cart_db:
+    image: postgres:15
+    ports:
+      - "5433:5432"
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: cart_dev
+    volumes:
+      - cart_db_data:/var/lib/postgresql/data
+    networks:
+      - backend
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  catalog_db:
+    image: postgres:15
+    ports:
+      - "5434:5432"
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: catalog_dev
+    volumes:
+      - catalog_db_data:/var/lib/postgresql/data
+    networks:
+      - backend
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  # Configuration Server
+  configuration_server:
+    image: configuration_server
+    ports:
+      - "8089:8089"
+    environment:
+      ENCRYPT_KEY: "fje83Ki8403Iod87dne7Yjsl3THueh48jfuO9j4U2hf64Lo"
+      SERVER_PORT: "8089"
+    networks:
+      - backend
+    depends_on:
+      - user_db
+      - cart_db
+      - catalog_db
+
+  # Microservices
+  user_service:
+    image: user_service
+    environment:
+      # keep your old vars (if used) but add standard Spring names
+      PROFILE: "dev"
+      SPRING_PROFILES_ACTIVE: "dev"
+      CONFIGSERVER_URI: "http://configuration_server:8089"
+      SPRING_CLOUD_CONFIG_URI: "http://configuration_server:8089"
+      CONFIGSERVER_PORT: "8089"
+
+      # Postgres (points to the docker-compose service name + internal port)
+      SPRING_DATASOURCE_URL: jdbc:postgresql://user_db:5432/user_dev
+      SPRING_DATASOURCE_USERNAME: postgres
+      SPRING_DATASOURCE_PASSWORD: postgres
+      SPRING_DATASOURCE_DRIVER_CLASS_NAME: org.postgresql.Driver
+
+      # fallback / legacy names (in case your app reads these)
+      DATABASESERVER_PORT: "5432"
+      ENCRYPT_KEY: "IMSYMMETRIC"
+    depends_on:
+      user_db:
+        condition: service_healthy
+      configuration_server:
+        condition: service_started
+    ports:
+      - "8080:8080"
+    networks:
+      - backend
+
+  cart_service:
+    image: cart_service
+    environment:
+      PROFILE: "dev"
+      SPRING_PROFILES_ACTIVE: "dev"
+      CONFIGSERVER_URI: "http://configuration_server:8089"
+      SPRING_CLOUD_CONFIG_URI: "http://configuration_server:8089"
+      CONFIGSERVER_PORT: "8089"
+
+      SPRING_DATASOURCE_URL: jdbc:postgresql://cart_db:5432/cart_dev
+      SPRING_DATASOURCE_USERNAME: postgres
+      SPRING_DATASOURCE_PASSWORD: postgres
+      SPRING_DATASOURCE_DRIVER_CLASS_NAME: org.postgresql.Driver
+
+      DATABASESERVER_PORT: "5432"
+      ENCRYPT_KEY: "IMSYMMETRIC"
+    depends_on:
+      cart_db:
+        condition: service_healthy
+      configuration_server:
+        condition: service_started
+    ports:
+      - "8081:8080"
+    networks:
+      - backend
+
+  catalog_service:
+    image: catalog_service
+    environment:
+      PROFILE: "dev"
+      SPRING_PROFILES_ACTIVE: "dev"
+      CONFIGSERVER_URI: "http://configuration_server:8089"
+      SPRING_CLOUD_CONFIG_URI: "http://configuration_server:8089"
+      CONFIGSERVER_PORT: "8089"
+
+      SPRING_DATASOURCE_URL: jdbc:postgresql://catalog_db:5432/catalog_dev
+      SPRING_DATASOURCE_USERNAME: postgres
+      SPRING_DATASOURCE_PASSWORD: postgres
+      SPRING_DATASOURCE_DRIVER_CLASS_NAME: org.postgresql.Driver
+
+      DATABASESERVER_PORT: "5432"
+      ENCRYPT_KEY: "IMSYMMETRIC"
+    depends_on:
+      catalog_db:
+        condition: service_healthy
+      configuration_server:
+        condition: service_started
+    ports:
+      - "8082:8080"
+    networks:
+      - backend
+
+networks:
+  backend:
+    driver: bridge
+
+volumes:
+  user_db_data:
+  cart_db_data:
+  catalog_db_data:
