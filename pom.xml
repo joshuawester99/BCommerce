@@ -4,12 +4,11 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
   <modelVersion>4.0.0</modelVersion>
 
-  <!-- keep Spring Boot parent for dependency management -->
   <parent>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-parent</artifactId>
         <version>2.2.3.RELEASE</version>
-        <relativePath/> <!-- lookup parent from repository -->
+        <relativePath/>
   </parent>
 
   <groupId>BCommerce</groupId>
@@ -18,7 +17,6 @@
   <packaging>pom</packaging>
 
   <properties>
-    <!-- default: skip docker image builds unless overridden on CLI -->
     <dockerfile.skip>true</dockerfile.skip>
   </properties>
 
@@ -32,7 +30,6 @@
   <build>
     <pluginManagement>
       <plugins>
-        <!-- centralize plugin version here -->
         <plugin>
           <groupId>com.spotify</groupId>
           <artifactId>dockerfile-maven-plugin</artifactId>
