@@ -1,6 +1,8 @@
 package argon;
 
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
@@ -12,7 +14,11 @@ import lombok.ToString;
 @Entity @Table(name = "items")
 public class Item {
 	
-	@Id private String name;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+    
+    private String name;
 	private String description;
 	private int quantity_in_stock;
 	private double price;
