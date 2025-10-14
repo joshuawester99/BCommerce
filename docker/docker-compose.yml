@@ -1,5 +1,4 @@
 services:
-  # Databases
   user_db:
     image: postgres:15
     ports:
@@ -9,7 +8,7 @@ services:
       POSTGRES_PASSWORD: postgres
       POSTGRES_DB: user_dev
     volumes:
-      - ./db/init:/docker-entrypoint-initdb.d:ro   # put init.sql + data.sql here
+      - ./db/init:/docker-entrypoint-initdb.d:ro
       - user_db_data:/var/lib/postgresql/data
     networks:
       - backend
@@ -55,7 +54,6 @@ services:
       timeout: 5s
       retries: 5
 
-  # Configuration Server
   configuration_server:
     image: configuration_server
     ports:
@@ -70,24 +68,21 @@ services:
       - cart_db
       - catalog_db
 
-  # Microservices
   user_service:
     image: user_service
     environment:
-      # keep your old vars (if used) but add standard Spring names
       PROFILE: "dev"
       SPRING_PROFILES_ACTIVE: "dev"
       CONFIGSERVER_URI: "http://configuration_server:8089"
       SPRING_CLOUD_CONFIG_URI: "http://configuration_server:8089"
       CONFIGSERVER_PORT: "8089"
 
-      # Postgres (points to the docker-compose service name + internal port)
       SPRING_DATASOURCE_URL: jdbc:postgresql://user_db:5432/user_dev
       SPRING_DATASOURCE_USERNAME: postgres
       SPRING_DATASOURCE_PASSWORD: postgres
       SPRING_DATASOURCE_DRIVER_CLASS_NAME: org.postgresql.Driver
 
-      # fallback / legacy names (in case your app reads these)
+
       DATABASESERVER_PORT: "5432"
       ENCRYPT_KEY: "IMSYMMETRIC"
     depends_on:
