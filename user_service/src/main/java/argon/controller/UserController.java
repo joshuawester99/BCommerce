@@ -1,4 +1,4 @@
-package argon;
+package argon.controller;
 
 import java.util.List;
 
@@ -7,6 +7,9 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+
+import argon.model.User;
+import argon.service.UserService;
 
 @RestController
 @RequestMapping(value = "user")

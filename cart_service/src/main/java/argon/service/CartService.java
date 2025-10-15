@@ -1,7 +1,10 @@
-package argon;
+package argon.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import argon.model.Cart;
+import argon.repository.CartRepository;
 
 @Service
 public class CartService {

@@ -1,4 +1,4 @@
-package argon;
+package argon.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -6,14 +6,25 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-@RestController
-@RequestMapping(value = "catalog")
-public class ItemController {
+import argon.model.Cart;
+import argon.service.CartService;
 
-	@Autowired private ItemService service;
+@RestController
+@RequestMapping(value = "cart")
+public class CartController {
+
+	@Autowired private CartService service;
 	
 	@GetMapping
-	public ResponseEntity<Item> getItem() {
+	public ResponseEntity<Cart> getCart() {
 		return null;
 	}
+	
+	// add to cart
+	
+	// remove from cart
+	
+	// clear cart
+	
+	// check out
 }
