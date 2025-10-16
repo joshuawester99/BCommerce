@@ -10,7 +10,7 @@ import lombok.ToString;
 
 @Getter @Setter @ToString
 @Entity
-public class Item {
+public class OrderItem {
 	
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
