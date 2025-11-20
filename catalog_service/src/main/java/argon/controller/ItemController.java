@@ -16,9 +16,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import argon.dto.CatalogDto;
-import argon.dto.ItemDto;
-import argon.dto.ReviewDto;
+import argon.model.Item;
+import argon.model.Review;
 import argon.service.ItemService;
 
 @RestController
@@ -28,25 +27,25 @@ public class ItemController {
 	@Autowired private ItemService service;
 
 	@GetMapping
-	public ResponseEntity<Page<ItemDto>> listItems(Pageable pageable, @RequestParam Optional<String> q) {
+	public ResponseEntity<Page<Item>> listItems(Pageable pageable, @RequestParam Optional<String> q) {
 		return null;
 
 	}
 
 	@GetMapping("/{itemId}")
-	public ResponseEntity<ItemDto> getItem(@PathVariable Long itemId) {
+	public ResponseEntity<Item> getItem(@PathVariable Long itemId) {
 		return null;
 
 	}
 
 	@PostMapping
-	public ResponseEntity<ItemDto> createItem(@RequestBody ItemDto dto) {
+	public ResponseEntity<Item> createItem(@RequestBody Item dto) {
 		return null;
 
 	}
 
 	@PutMapping("/{itemId}")
-	public ResponseEntity<ItemDto> updateItem(@PathVariable Long itemId, @RequestBody ItemDto dto) {
+	public ResponseEntity<Item> updateItem(@PathVariable Long itemId, @RequestBody Item dto) {
 		return null;
 
 	}
@@ -57,26 +56,14 @@ public class ItemController {
 
 	}
 
-	@GetMapping("/{itemId}/inventory")
-	public ResponseEntity<CatalogDto> getInventory(@PathVariable Long itemId) {
-		return null;
-
-	}
-
-	@PutMapping("/{itemId}/inventory")
-	public ResponseEntity<CatalogDto> updateInventory(@PathVariable Long itemId, @RequestBody CatalogDto dto) {
-		return null;
-
-	}
-
 	@GetMapping("/{itemId}/reviews")
-	public ResponseEntity<Page<ReviewDto>> listReviews(@PathVariable Long itemId, Pageable pageable) {
+	public ResponseEntity<Page<Review>> listReviews(@PathVariable Long itemId, Pageable pageable) {
 		return null;
 
 	}
 
 	@PostMapping("/{itemId}/reviews")
-	public ResponseEntity<ReviewDto> createReview(@PathVariable Long itemId, @RequestBody ReviewDto dto, Long userId) {
+	public ResponseEntity<Review> createReview(@PathVariable Long itemId, @RequestBody Review dto, Long userId) {
 		return null;
 
 	}

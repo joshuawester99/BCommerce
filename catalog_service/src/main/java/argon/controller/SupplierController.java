@@ -11,30 +11,30 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 
-import argon.dto.SupplierDto;
+import argon.model.Supplier;
 
 public class SupplierController {
 	
 	@GetMapping("/suppliers")
-	public ResponseEntity<Page<SupplierDto>> listSuppliers(Pageable pageable) {
+	public ResponseEntity<Page<Supplier>> listSuppliers(Pageable pageable) {
 		return null;
 
 	}
 
 	@GetMapping("/suppliers/{supplierId}")
-	public ResponseEntity<SupplierDto> getSupplier(@PathVariable Long supplierId) {
+	public ResponseEntity<Supplier> getSupplier(@PathVariable Long supplierId) {
 		return null;
 
 	}
 
 	@PostMapping("/suppliers")
-	public ResponseEntity<SupplierDto> createSupplier(@RequestBody SupplierDto dto) {
+	public ResponseEntity<Supplier> createSupplier(@RequestBody Supplier dto) {
 		return null;
 
 	}
 
 	@PutMapping("/suppliers/{supplierId}")
-	public ResponseEntity<SupplierDto> updateSupplier(@PathVariable Long supplierId, @RequestBody SupplierDto dto) {
+	public ResponseEntity<Supplier> updateSupplier(@PathVariable Long supplierId, @RequestBody Supplier dto) {
 		return null;
 
 	}

@@ -1,63 +1,37 @@
 package argon.controller;
 
+import java.util.concurrent.CompletableFuture;
+
 import org.springframework.beans.factory.annotation.Autowired;
 
-import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.http.HttpStatus;
 
-import argon.dto.CartDto;
-import argon.dto.OrderItemDto;
-import argon.dto.PaymentDto;
+import argon.model.Payment;
 import argon.service.CartService;
+import lombok.extern.slf4j.Slf4j;
 
 @RestController
-@RequestMapping(value = "cart")
+@RequestMapping(value = "api/cart")
+@Slf4j
 public class CartController {
 
 	@Autowired private CartService service;
-
-	@GetMapping("/cart")
-	public ResponseEntity<CartDto> getCart(Long userId) {
-		return null;
-
+	
+	@PostMapping("/checkout")
+	@ResponseStatus(HttpStatus.CREATED)
+	public String checkout(@RequestBody Payment payment) {
+		service.checkout(payment);
+		return "Checkout successfull!";
 	}
-
-	@PostMapping("/cart/items")
-	public ResponseEntity<CartDto> addCartItem(Long userId, @RequestBody OrderItemDto dto) {
-		return null;
-
-	}
-
-	@PutMapping("/cart/items/{itemId}")
-	public ResponseEntity<CartDto> updateCartItem(Long userId, @PathVariable Long itemId, @RequestBody OrderItemDto dto) {
-		return null;
-
-	}
-
-	@DeleteMapping("/cart/items/{itemId}")
-	public ResponseEntity<CartDto> removeCartItem(Long userId, @PathVariable Long itemId) {
-		return null;
-
-	}
-
-	@DeleteMapping("/cart")
-	public ResponseEntity<Void> emptyCart(Long userId) {
-		return null;
-
-	}
-
-	@PostMapping("/cart/checkout")
-	public ResponseEntity<CartDto> checkout(Long userId, @RequestBody PaymentDto dto) {
-		return null;
-
-	}
+	
+    public CompletableFuture<String> fallbackMethod(Payment payment, RuntimeException runtimeException) {
+        return CompletableFuture.supplyAsync(() -> "An error occured. Please try again later.");
+    }
 
 
 }

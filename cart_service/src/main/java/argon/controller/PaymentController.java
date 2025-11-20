@@ -6,24 +6,24 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 
-import argon.dto.PaymentDto;
+import argon.model.Payment;
 
 public class PaymentController {
 	
 	@PostMapping("/payments")
-	public ResponseEntity<PaymentDto> createPayment(Long userId, @RequestBody PaymentDto dto) {
+	public ResponseEntity<Payment> createPayment(Long userId, @RequestBody Payment dto) {
 		return null;
 
 	}
 
 	@GetMapping("/payments/{paymentId}")
-	public ResponseEntity<PaymentDto> getPayment(Long userId, @PathVariable Long paymentId) {
+	public ResponseEntity<Payment> getPayment(Long userId, @PathVariable Long paymentId) {
 		return null;
 
 	}
 
 	@PostMapping("/payments/{paymentId}/confirm")
-	public ResponseEntity<PaymentDto> confirmPayment(@PathVariable Long paymentId, @RequestBody PaymentDto dto) {
+	public ResponseEntity<Payment> confirmPayment(@PathVariable Long paymentId, @RequestBody Payment dto) {
 		return null;
 
 	}

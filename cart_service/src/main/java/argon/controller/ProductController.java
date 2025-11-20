@@ -9,36 +9,35 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 
-import argon.dto.OrderItemDto;
+import argon.model.OrderItem;
 
 public class ProductController {
 
 	@GetMapping("/orders")
-	public ResponseEntity<Page<OrderItemDto>> listOrders(Long userId, Pageable pageable) {
+	public ResponseEntity<Page<OrderItem>> listOrders(Long userId, Pageable pageable) {
 		return null;
-
 	}
 
 	@GetMapping("/orders/{orderId}")
-	public ResponseEntity<OrderItemDto> getOrder(Long userId, @PathVariable Long orderId) {
+	public ResponseEntity<OrderItem> getOrder(Long userId, @PathVariable Long orderId) {
 		return null;
 
 	}
 
 	@PostMapping("/orders/{orderId}/cancel")
-	public ResponseEntity<OrderItemDto> cancelOrder(Long userId, @PathVariable Long orderId) {
+	public ResponseEntity<OrderItem> cancelOrder(Long userId, @PathVariable Long orderId) {
 		return null;
 
 	}
 
 	@PostMapping("/orders/{orderId}/items")
-	public ResponseEntity<OrderItemDto> addOrderItem(Long userId, @PathVariable Long orderId, @RequestBody OrderItemDto dto) {
+	public ResponseEntity<OrderItem> addOrderItem(Long userId, @PathVariable Long orderId, @RequestBody OrderItem dto) {
 		return null;
 
 	}
 
 	@PutMapping("/orders/{orderId}/items/{itemId}")
-	public ResponseEntity<OrderItemDto> updateOrderItem(Long userId, @PathVariable Long orderId, @PathVariable Long itemId, @RequestBody OrderItemDto dto) {
+	public ResponseEntity<OrderItem> updateOrderItem(Long userId, @PathVariable Long orderId, @PathVariable Long itemId, @RequestBody OrderItem dto) {
 		return null;
 
 	}
